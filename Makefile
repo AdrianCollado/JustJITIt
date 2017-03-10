@@ -30,12 +30,11 @@ all: build
 
 .PHONY: clean
 clean:
-	@printf "$(COM_COLOR)Cleaning Directory                            $(OK_COLOR)[OK]$(NO_COLOR)\n"
-	@rm -rf Build/
-	@echo
+	@$(call EXECUTE,Cleaning Directory,rm -r Build/)
+	@$(call EXECUTE,Cleaning Executable,rm jj)
 
 .PHONY: build
-build: Makefile Build/jj
+build: Makefile jj
 
 .PHONY: rebuild
 rebuild: clean build
@@ -70,12 +69,14 @@ exit $$RESULT
 endef
 
 SRC := $(shell find Source -name '*.cpp')
-OBJ := $(patsubst Source/%.cpp,Build/Objects/%.o,$(SRC))
+OBJ := $(patsubst Source/%.cpp,Build/%.o,$(SRC))
 
-Build/Objects/%.o: Source/%.cpp Makefile
+CPPFLAGS += -IInclude -g
+
+Build/%.o: Source/%.cpp Makefile
 	@mkdir -p $(@D)
-	@$(call EXECUTE,Compiling,$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MMD -MP -MF Build/Objects/$*.d -c -o $@ $<)
+	@$(call EXECUTE,Compiling,$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MMD -MP -MF Build/$*.d -c -o $@ $<)
 
-Build/jj: $(OBJ)
+jj: $(OBJ)
 	@mkdir -p $(@D)
 	@$(call EXECUTE,Linking,$(CXX) -o $@ $^ $(LDFLAGS))

@@ -4,29 +4,29 @@ Just JIT It is a tutorial on implementing a simple JIT compiler. It currently ru
 ## Build Instructions
 - Clone the repository.
 - Run `make` from the main directory.
-- Profit (executable is in the `Build` folder as `Build/jj`)
+- Profit!
 
 ## Usage Instructions
 ### AOT Compilation
-- Compiling: `Build/jj -a -o <OUTPUT> [-f <NAME>]`
-- Running: `Build/jj -a -r <NAME>`
+- Compiling: `jj -a -o <OUTPUT> [-f <NAME>]`
+- Running: `jj -a -r <NAME>`
 
 #### Naive Optimizations
-- Compiling: `Build/jj -an -o <OUTPUT> [-f <NAME>]`
-- Running: `Build/jj -an -r <NAME>`
+- Compiling: `jj -an -o <OUTPUT> [-f <NAME>]`
+- Running: `jj -an -r <NAME>`
 
 #### Better Optimizations
-- Compiling: `Build/jj -ao -o <OUTPUT> [-f <NAME>]`
-- Running: `Build/jj -ao -r <NAME>`
+- Compiling: `jj -ao -o <OUTPUT> [-f <NAME>]`
+- Running: `jj -ao -r <NAME>`
 
 ### JIT Compilation
-`Build/jj -j [-f <NAME>]`
+`jj -j [-f <NAME>]`
 
 #### Naive Optimizations
-`Build/jj -jn [-f <NAME>]`
+`jj -jn [-f <NAME>]`
 
 #### Better Optimizations
-`Build/jj -jo [-f <NAME>]`
+`jj -jo [-f <NAME>]`
 
 ### Interpretation
-`Build/jj -i [-f <NAME>]`
+`jj -i [-f <NAME>]`

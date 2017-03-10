@@ -2,8 +2,6 @@
 //                                Just JIT It                                //
 //                Implementing your own simple JIT compiler.                 //
 //---------------------------------------------------------------------------//
-// This file is the entry point in "JIT-Naive" operating mode.               //
-//---------------------------------------------------------------------------//
 // Copyright (C) 2017 - Adrian J. Collado                                    //
 // All Rights Reserved                                                       //
 //---------------------------------------------------------------------------//
@@ -26,15 +24,49 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE //
 // USE OR OTHER DEALINGS IN THE SOFTWARE.                                    //
 //===========================================================================//
-#include <iostream>
-#include <string>
-#include <vector>
-
 #include "Lexer/Language.hpp"
 
-int MainJN(const std::vector<std::string>& args) {
-    Lexer::Language lang;
-    lang.LoadFile("test.src");
-    lang.Tokenize();
-    lang.Analyze();
-}
+#include <iostream>
+
+using ScopeNode = Lexer::Language::ScopeNode;
+
+ScopeNode::ScopeNode(ScopeNode::ScopeType type, ScopeNode* parent)
+    : m_Type(type), m_Parent(parent) {}
+
+// DEBUG PRINT --- REMOVE!!!!!!
+// void ScopeNode::Print(std::string ident) {
+//     std::size_t loc = 0;
+//     while (loc < m_Types.size()) {
+//         auto type = m_Types[loc];
+//         auto val = m_Values[loc];
+
+//         if (type == LangMatchType::Literal) {
+//             std::cout << ident << "Literal: " << val << std::endl;
+//         }
+//         else if (type == LangMatchType::Number) {
+//             std::cout << ident << "Number: " << val << std::endl;
+//         }
+//         else if (type == LangMatchType::Operator) {
+//             std::cout << ident << "Operator: " << val << std::endl;
+//         }
+//         else if (type == LangMatchType::Keyword) {
+//             std::cout << ident << "Keyword: " << val << std::endl;
+//         }
+//         else if (type == LangMatchType::Identifier) {
+//             std::cout << ident << "Identifier: " << val << std::endl;
+//         }
+//         else if (type == LangMatchType::Scope) {
+//             std::cout << ident << "Scope (";
+//             int id = std::stoi(val);
+//             std::cout << id << ", '";
+//             ScopeType t = Child(id)->Type();
+//             if (t == Parentheses) std::cout << "()': " << std::endl;
+//             else if (t == Brackets) std::cout << "[]': " << std::endl;
+//             else if (t == Braces) std::cout << "{}': " << std::endl;
+
+//             Child(id)->Print(ident + "  ");
+//         }
+
+//         loc++;
+//     }
+// }

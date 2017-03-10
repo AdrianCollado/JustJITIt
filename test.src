@@ -1,0 +1,7 @@
+def FloatPair as [ f32 X, f32 Y ];
+func Distance(FloatPair p) -> f32 {
+    f32 x2 = p.X * p.X;
+    f32 y2 = p.Y * p.y;
+    return sqrt(x2 + y2);
+    34.92;
+}

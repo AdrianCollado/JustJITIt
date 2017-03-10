@@ -2,8 +2,6 @@
 //                                Just JIT It                                //
 //                Implementing your own simple JIT compiler.                 //
 //---------------------------------------------------------------------------//
-// This file is the entry point in "JIT-Naive" operating mode.               //
-//---------------------------------------------------------------------------//
 // Copyright (C) 2017 - Adrian J. Collado                                    //
 // All Rights Reserved                                                       //
 //---------------------------------------------------------------------------//
@@ -26,15 +24,14 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE //
 // USE OR OTHER DEALINGS IN THE SOFTWARE.                                    //
 //===========================================================================//
-#include <iostream>
-#include <string>
-#include <vector>
-
 #include "Lexer/Language.hpp"
 
-int MainJN(const std::vector<std::string>& args) {
-    Lexer::Language lang;
-    lang.LoadFile("test.src");
-    lang.Tokenize();
-    lang.Analyze();
+int Lexer::Language::ScopeNode::Attach(ScopeType type) {
+    m_Children.push_back(ScopeNode(type, this));
+    return m_Children.size() - 1;
+}
+
+void Lexer::Language::ScopeNode::Attach(Lexer::Language::LangMatchType type, std::string value) {
+    m_Types.push_back(type);
+    m_Values.push_back(value);
 }
